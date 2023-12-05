@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home'
 import Dashboard from './pages/Dashboard'
@@ -18,6 +18,7 @@ function App() {
          <Route path='/login'  element={<Auth />}/>
          <Route path='/project'  element={isAuthorized?<Projects/>:<Home/>}/>
          <Route path='/register'  element={<Auth register/>}/>
+
 
       </Routes>
       <Footer/>
