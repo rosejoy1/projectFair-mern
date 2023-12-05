@@ -1,8 +1,20 @@
+import { useContext } from 'react';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { tokenAuthorisationContext } from '../Contexts/TokenAuth';
 
 function Header({insideDashboard}) {
+   const navigate=useNavigate()
+   const {isAuthorized,setIsAuthorized}=useContext(tokenAuthorisationContext)
+   const handleLogout=()=>{
+    // remove all existing user detaills from browser
+    sessionStorage.removeItem("existingUser")
+    sessionStorage.removeItem("token")
+    setIsAuthorized(false)
+    // navigate to landing page
+    navigate('/')
+   }
   return (
     <Navbar className="bg-info">
         <Container>
@@ -15,7 +27,7 @@ function Header({insideDashboard}) {
          
           </Navbar.Brand>
 {insideDashboard&&
-          <button className='btn btn-dark rounded-4'>
+          <button onClick={handleLogout} className='btn btn-dark rounded-4'>
             Logout
           </button>}
         </Container>
